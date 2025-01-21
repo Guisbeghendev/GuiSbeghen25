@@ -1,0 +1,15 @@
+<!-- autenticad/templates/autenticad/delete_account.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Tem certeza que deseja excluir sua conta?</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" style="color: red;">Excluir minha conta</button>
+    </form>
+
+    <p><a href="{% url 'autenticad:dashboard' %}">Voltar ao Painel</a></p>
+{% endblock %}
+

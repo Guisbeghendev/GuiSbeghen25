@@ -1,0 +1,24 @@
+<!-- reposith/templates/gallery_created.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+
+        <div class="container text-center mt-5">
+            <h1 class="titulo-pagina">Galeria Criada com Sucesso!</h1>
+            <p>A galeria foi criada e está pronta para ser configurada ou visualizada.</p>
+
+            {% if not gallery.is_finalized %}
+                <a href="{% url 'reposith:finalize_gallery' gallery.id %}" class="btn btn-success mt-3">Finalizar Galeria</a>
+            {% else %}
+                <p>A galeria já foi finalizada.</p>
+            {% endif %}
+
+            <a href="{% url 'reposith:fotografo_dashboard' %}" class="btn btn-primary mt-3">Voltar para o Dashboard</a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

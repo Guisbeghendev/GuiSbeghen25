@@ -1,0 +1,80 @@
+<!-- autenticad/templates/autenticad/edit_user.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="mb-4">
+
+        <h1 class="titulo-pagina">Editar Informações de Autenticação</h1>
+        <!-- Exibindo erros de formulário -->
+        {% if user_form.errors %}
+            <div class="alert alert-danger">
+                <strong>Erro ao salvar:</strong> Por favor, corrija os erros abaixo.
+                <ul>
+                    {% for field in user_form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+            <div class="col">
+
+                <div class="row">
+
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="id_username" class="form-label">
+                                <h6 class="rgbtextb">Nome de Usuário</h6>
+                            </label>
+                            {{ user_form.username }}  
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_first_name" class="form-label">
+                                <h6 class="rgbtextb">Primeiro Nome</h6>
+                            </label>
+                            {{ user_form.first_name }}  
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_last_name" class="form-label">
+                                <h6 class="rgbtextb">Último Nome</h6>
+                            </label>
+                            {{ user_form.last_name }}  
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_email" class="form-label">
+                                <h6 class="rgbtextb">E-mail</h6>
+                            </label>
+                            {{ user_form.email }}  <!-- Removi o add_class -->
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">Salvar</button>
+                        </div>
+                    </form>
+
+                    {% if user_form.is_valid %}
+                        <div class="alert alert-success mt-3">
+                            Informações salvas com sucesso!
+                        </div>
+                    {% endif %}
+                
+                </div>
+                <br>
+                <div class="row">
+                    <a href="{% url 'autenticad:edit_profile' %}" class="btn btn-dark btn-block">Voltar</a>
+                </div>
+
+            </div>
+
+    </div>
+</div>
+{% endblock %}

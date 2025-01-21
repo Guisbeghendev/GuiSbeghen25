@@ -1,0 +1,31 @@
+<!-- reposith/templates/error_register.html -->
+
+{% extends 'base.html' %}
+
+{% block head %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Erro no Registro</title>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="text-center mb-4">
+
+    <div class="container">
+      <h1 class="titulo-pagina">Erro no Registro</h1>
+      <div class="message">
+        O diretório já foi registrado anteriormente!
+      </div>
+
+      <!-- Botão de redirecionamento -->
+      <a href="{% url 'reposith:list_directories' %}">
+        <button class="btn btn-success mt-3">Ir para a Seleção de Diretórios</button>
+      </a>
+
+    </div>
+
+  </div>
+</div>
+{% endblock %}

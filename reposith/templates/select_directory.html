@@ -1,0 +1,46 @@
+<!-- reposith/templates/select_directory.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="text-center mb-4">
+
+    <div class="container">
+
+      <h1 class="titulo-pagina">Escolha o Diretório para Registrar</h1>
+
+      {% if not directories %}
+        <p>Não há diretórios disponíveis para registrar.</p>
+
+        <!-- Link para o dashboard do fotógrafo -->
+        <p><a href="{% url 'reposith:fotografo_dashboard' %}" class="btn btn-success">Ir para o Dashboard do Fotógrafo</a></p>
+
+      {% else %}
+        <form method="post" action="{% url 'reposith:register_directory' %}">
+          {% csrf_token %}
+
+          <!-- Seleção de Diretórios -->
+          <label for="directory_name"><h6 class="rgbtextb">Escolha o Diretório:</h6></label>
+          <select name="directory_name" id="directory_name" class="form-control">
+            {% for dir in directories %}
+              <option value="{{ dir }}">{{ dir }}</option>
+            {% endfor %}
+          </select>
+
+          <!-- Botão com classe Bootstrap -->
+          <button type="submit" class="btn btn-success mt-3">Registrar Diretório</button>
+        </form>
+      {% endif %}
+
+
+      <hr>
+      <!-- Link para o dashboard do fotógrafo -->
+      <p><a href="{% url 'reposith:fotografo_dashboard' %}" class="btn btn-success">Ir para o Dashboard do Fotógrafo</a></p>
+  
+
+    </div>
+  
+  </div>
+</div>
+{% endblock %}

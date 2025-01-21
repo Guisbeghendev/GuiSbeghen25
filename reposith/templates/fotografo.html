@@ -1,0 +1,39 @@
+<!-- reposith/templates/fotografo.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="text-center mb-4">
+
+    <!-- Grupo 1: Botões do fotógrafo -->
+    <div class="container-fluid">
+      <h1 class="titulo-pagina">Bem-vindo ao painel do fotógrafo</h1>
+
+      <!-- Organizando os botões verticalmente -->
+      <div class="mb-3">
+        <!-- Criar pasta no servidor sem registro no banco -->
+        <a href="{% url 'desktop:create_folder' %}" class="btn btn-dark w-100 mb-2">Criar Pasta</a>
+        <!-- Adicionar imagens no servidor sem registro no banco -->
+        <a href="{% url 'desktop:upload_files' %}" class="btn btn-success w-100 mb-2">Enviar Arquivos</a>
+        <!-- Registrar diretório do servidor no banco -->
+        <a href="{% url 'reposith:register_directory' %}" class="btn btn-dark w-100 mb-2">Registrar novo diretório</a>
+        <!-- Gerir marca d'água -->
+        <a href="{% url 'reposith:manage_watermark' %}" class="btn btn-success w-100 mb-2">Gerenciar Marca d'Água</a>
+        
+        <!-- Criar galeria (Verifica se o diretório foi registrado, caso sim, exibe o botão para criar a galeria) -->
+        {% if diretoria_registrada %}
+          <a href="{% url 'reposith:create_gallery' %}" class="btn btn-dark w-100 mb-2">Criar Galeria</a>
+        {% else %}
+          <p>Nenhum diretório registrado. Registre um diretório primeiro.</p>
+        {% endif %}
+
+        <!-- Listar Galerias -->
+        <a href="{% url 'reposith:list_galleries' %}" class="btn btn-success w-100 mb-2">Listar Galerias</a>
+      </div>
+    </div>
+    
+  </div>
+</div>
+{% endblock %}
+

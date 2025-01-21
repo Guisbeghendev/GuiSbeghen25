@@ -1,0 +1,94 @@
+<!-- autenticad/templates/autenticad/dashboard.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="mb-4">
+        <h1 class="titulo-pagina">Meu painel!</h1>
+        <!-- Dash -->
+        <div class="container-fluid">
+            <div class="row">
+
+                <!-- Coluna 1: Conteúdo -->
+                <div class="col-12 col-lg-8 col-md-7">
+                    <div class="bg-light rounded p-3">
+                        <h5>Conteúdo</h5>
+                        <p>Aqui vai o conteúdo principal da dashboard.</p>
+                    </div>
+                </div>  
+                
+                <!-- Coluna 2: Resumo e Botões -->
+                <div class="col-12 col-lg-4 col-md-5 mb-4">
+                    <!-- Resumo do Perfil -->
+                    <div class="bg-info rounded p-3">
+                        <h5 class="rgbtextr" data-bs-toggle="collapse" data-bs-target="#resumoPerfil" aria-expanded="false" aria-controls="resumoPerfil" style="cursor: pointer;">
+                            Clique para ver <br> Resumo do perfil
+                        </h5>
+                        <div id="resumoPerfil" class="collapse">
+                            <p class="rgbtextb">ID do usuário: {{ user.id }}</p>
+                            <p class="rgbtextb">Nome: {{ user.first_name }} {{ user.last_name }}</p>
+                            <p class="rgbtextb">Cidade: {{ user.city }}</p>
+                            <p class="rgbtextb">Estado: {{ user.state }}</p>
+                            <p class="rgbtextb">Data de Nascimento: {{ user.birth_date }}</p>
+                        </div>
+                    </div>
+                    
+                    <br>
+                    <!-- Funcionalidades -->
+                    <div class="btn-group-vertical w-100">
+                        <!--perfil-->
+                        <a href="{% url 'autenticad:perfil' %}" class="btn btn-primary btn-block">Perfil Completo</a>
+                        {% if is_fotografo_or_superuser %}
+                        <!--para user fotográfo/supersuser entrar no painel fotografo-->
+                        <a href="{% url 'reposith:fotografo_dashboard' %}" class="btn btn-dark btn-block">Painel do Fotógrafo</a>
+                        {% endif %}
+                        <!--para user administrador/supersuser entrar no painel django admin-->
+                        {% if is_administrador_or_superuser %}
+                        <a href="{% url 'admin:index' %}" class="btn btn-dark btn-block">Painel de Administração</a>
+                        {% endif %}
+                        <!--para qualquer user acessar-->
+                        <a href="{% url 'reposith:meualbum' user.id %}" class="btn btn-dark btn-block">Meus Álbuns</a>
+                        <a href="{% url 'autenticad:edit_profile' %}" class="btn btn-secondary btn-block">Editar Perfil</a>
+                        <br>
+                        <!--excluir conta-->
+                        <div class="col d-flex flex-column justify-content-center align-items-center bg-warning w-100">
+                            <!-- Título Excluir Conta (vai expandir o conteúdo) -->
+                            <h5 class="rgbtextr" data-bs-toggle="collapse" data-bs-target="#deleteconta" aria-expanded="false" aria-controls="deleteconta" style="cursor: pointer;">
+                                Excluir Conta
+                            </h5>
+                            
+                            <!-- Conteúdo que será expandido -->
+                            <div id="deleteconta" class="collapse">
+                                <h6 class="text-danger">Se você deseja excluir sua conta, clique no botão abaixo. Esta ação é irreversível.</h6>
+                                
+                                <!-- Formulário para excluir conta -->
+                                <form method="POST" action="{% url 'autenticad:delete_account' %}">
+                                    {% csrf_token %}
+                                    <button type="submit" style="color: red; border: 1px solid red; padding: 10px 20px; background: white;">
+                                        Excluir minha conta
+                                    </button>
+                                </form>
+                            </div>      
+                        </div>                         
+                        <br><br>
+                        <!--sair/logout-->
+                        <div class="row">
+                            <!-- Sair -->
+                            <form method="POST" action="{% url 'autenticad:logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-block">Sair</button>
+                            </form>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+        <!-- Fim Dash -->
+    </div>
+</div>
+
+{% endblock %}

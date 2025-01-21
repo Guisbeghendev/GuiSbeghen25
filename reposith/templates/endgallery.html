@@ -1,0 +1,43 @@
+<!-- reposith/templates/endgallery.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+
+        <div class="container">
+
+            <h1 class="titulo-pagina">Finalize a Galeria</h1>
+
+            <h6 class="rgbtextg">Detalhes da Galeria</h6>
+            <h6 class="rgbtextb">Nome:{{ gallery.name }}</h6>
+            <h6 class="rgbtextb">Data do Evento: {{ gallery.event_date|date:"d/m/Y" }}</h6>
+            <h6 class="rgbtextb">Descrição: {{ gallery.description }}</h6>
+            <hr>    
+            <h6 class="rgbtextg">Arquivos da Galeria</h6>
+            <ul>
+                {% for media in gallery.media_files.all %}
+                    <li><h6 class="rgbtextb">{{ media.file_path.name }}</h6></li>
+                {% empty %}
+                    <li>Não há arquivos associados ainda.</li>
+                {% endfor %}
+            </ul>
+            <hr>
+            <h6 class="rgbtextg">Marca d'Água</h6>
+            {% if gallery.watermark %}
+                <img src="{{ gallery.watermark.image.url }}" alt="Marca d'Água" width="200">
+            {% else %}
+                <p>Não há marca d'água associada.</p>
+            {% endif %}
+            <hr>
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success">Finalizar Galeria</button>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+<!-- reposith/templates/success_register.html -->
+
+{% extends 'base.html' %}
+
+{% block head %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sucesso no Registro</title>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="text-center mb-4">
+
+    <div class="container">
+      <h1 class="titulo-pagina">Registro Bem-sucedido!</h1>
+      <div class="message">
+          Diretório e arquivos foram registrados com sucesso!
+      </div>
+
+      <!-- Botão de redirecionamento -->
+      <a href="{% url 'reposith:fotografo_dashboard' %}">
+        <button class="btn btn-success mt-3">Ir para o Painel do Fotógrafo</button>
+      </a>
+
+    </div>
+  
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+<!-- templates/footer.html -->
+<footer class="container-fluid bg-black text-white text-center py-3">
+    <p>&copy; 2025 | www.guisbeghen.com.br | Todos os direitos reservados.</p>
+    <p><a href="{% url 'autenticad:privacy_policy' %}" class="text-white">Política de Privacidade</a></p>
+    <p><a href="https://www.exemplo.com/termo-de-privacidade" target="_blank" class="text-white">Política de Privacidade (Link Externo)</a></p>
+    <div id="visit-counter">Carregando visitas...</div>
+</footer>
+
+<script>
+    // Função para buscar o contador de visitas
+    async function fetchVisitCounter() {
+        try {
+            // Incrementa e retorna o contador de visitas via POST
+            const response = await fetch('/api/visit-counter/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),  // Certifique-se de enviar o CSRF token
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            // Atualiza o contador de visitas no rodapé
+            const data = await response.json();
+            document.getElementById('visit-counter').innerText = `Recebemos o total de visitas: ${data.visit_count}`;
+        } catch (error) {
+            console.error('Erro ao buscar contador de visitas:', error);
+            document.getElementById('visit-counter').innerText = 'Erro ao carregar visitas';
+        }
+    }
+
+    // Função para obter o token CSRF
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Se este cookie começar com o nome desejado, armazene o valor
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // Chama a função quando a página é carregada
+    document.addEventListener('DOMContentLoaded', fetchVisitCounter);
+</script>

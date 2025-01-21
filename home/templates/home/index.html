@@ -1,0 +1,151 @@
+<!-- home/templates/home/index.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Página Inicial{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid text-black py-5 animated-bg styled-box">
+    <div class="container text-center">
+        <h1 class="display-4 text-shadow-effect">Bem-vindo ao Guisbeghen</h1>
+        <br>
+        <div class="z3-content"> <!-- apenas essa div está na camada z3 -->
+            {% if not user.is_authenticated %}
+                <!-- Mostrar a frase e o botão apenas se o usuário não estiver logado -->
+                <h3>Você já tem cadastro? </h3>
+                <a href="{% url 'autenticad:login' %}" class="btn btn-dark btn-lg mt-2">Fazer Login</a>
+                <br><br>
+                <h3>Você ainda não tem cadastro? </h3>
+                <a href="{% url 'autenticad:register' %}" class="btn btn-dark btn-lg mt-2">Cadastre-se</a>
+            {% else %}
+                <!-- Se o usuário estiver logado, exibe outra coisa, como um botão de logout -->
+                <h3>Você está logado!</h3>
+                <!-- Formulário de logout (POST) -->
+                <form action="{% url 'autenticad:logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-dark btn-lg mt-2">Logout</button>
+                </form>
+            {% endif %}
+        </div> <!-- fim da camada z3 -->
+    </div>
+</div>
+
+
+
+
+<style>
+/* Adicionando a animação do gradiente */
+.animated-bg {
+    position: relative;
+    color: white; /* Texto branco */
+    overflow: hidden; /* Impede que as bolhas saiam do container */
+}
+
+.animated-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    /* Gradiente combinado: linear + radial */
+    background: 
+        radial-gradient(circle, rgba(255, 0, 0, 0.5), rgba(0, 255, 0, 0.5), rgba(0, 0, 255, 0.5)), 
+        linear-gradient(45deg, rgba(0, 191, 255, 0.5), rgba(50, 205, 50, 0.5), rgba(255, 99, 71, 0.5)); 
+    background-blend-mode: screen; /* Mistura os gradientes */
+    background-size: 300% 300%; /* Faz o gradiente "se mover" */
+    animation: gradientMove 6s linear infinite; /* Animação dos gradientes */
+    z-index: 1; /* Coloca o gradiente atrás do conteúdo */
+}
+
+.animated-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2; /* Coloca as bolhas entre o gradiente e o conteúdo */
+    pointer-events: none; /* As bolhas não interferem com o conteúdo interativo */
+
+    /* Fundo com as bolhas (mais transparentes) */
+    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22%3E%3Cg fill=%22rgba(255,255,255,0.2)%22%3E%3Ccircle cx=%2220%22 cy=%2220%22 r=%2215%22/%3E%3Ccircle cx=%22100%22 cy=%22250%22 r=%2220%22/%3E%3Ccircle cx=%22250%22 cy=%22380%22 r=%2212%22/%3E%3Ccircle cx=%22350%22 cy=%22200%22 r=%2218%22/%3E%3Ccircle cx=%2250%22 cy=%22350%22 r=%2215%22/%3E%3C/g%3E%3C/svg%3E');
+    background-size: 150px 200px;
+    background-repeat: repeat;
+    animation: bubbleFloat 50s ease infinite;
+}
+
+.container-fluid {
+    position: relative; /* Permite que o conteúdo fique acima do gradiente */
+    z-index: 2; /* Por padrão, conteúdo acima do gradiente */
+}
+
+/* Adicionando estilo específico para a camada z3 */
+.z3-content {
+    position: relative; /* Necessário para z-index funcionar */
+    z-index: 3; /* Coloca essa div na camada z3 */
+}
+
+/* Animação das bolhas flutuantes */
+@keyframes bubbleFloat {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 100%;
+    }
+}
+
+/* Definindo o movimento do gradiente */
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Texto com sombra e contorno */
+.text-shadow-effect {
+    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.8), /* Sombra mais nítida e próxima */
+                 6px 6px 8px rgba(234, 219, 219, 0.3); /* Sombra branca suave */
+    -webkit-text-stroke: 3px rgba(0, 0, 0, 0.7); /* Contorno escuro */
+    font-weight: 400; /* Aumenta a espessura do texto */
+    color: purple; /* Texto roxo */
+}
+
+
+/* Estilo adicional no quadro */
+.styled-box {
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.5); /* Sombra do quadro */
+    border-radius: 20px; /* Bordas arredondadas */
+    border: 2px solid rgba(255, 255, 255, 0.5); /* Bordas com brilho */
+    position: relative;
+    background-clip: padding-box; /* Faz o brilho nas bordas respeitar o conteúdo */
+}
+
+.styled-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit; /* Mesmas bordas arredondadas */
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.5); /* Brilho interno */
+    pointer-events: none; /* Não interfere com cliques ou interação */
+}
+</style>
+
+{% endblock %}

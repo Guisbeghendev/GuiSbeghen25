@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="mb-4">
+
+        <h1 class="titulo-pagina">Escolha um Grupo</h1>
+        <h6 class="rgbtextb text-center">Para ver as galerias, escolha o grupo a qual deseja ver.</h6>
+        <br>
+        <div class="container text-center">
+
+            <form method="GET" action="{% url 'reposith:meualbum' user.id %}">
+                <fieldset class="mb-4">
+                    
+                    <div class="form-check">
+                        {% for group in user_groups %}
+                            <div class="d-flex align-items-center justify-content-center mb-3 bg-info">
+                                <input 
+                                    type="radio" 
+                                    class="form-check-input me-2" 
+                                    name="group_id" 
+                                    id="group_{{ group.id }}" 
+                                    value="{{ group.id }}" 
+                                    required
+                                >
+                                <label class="form-check-label" for="group_{{ group.id }}">
+                                    <h5 class="rgbtextr mb-1 mt-1">{{ group.name }}</h5>
+                                </label>
+                            </div>
+                        {% empty %}
+                            <li>Você não pertence a nenhum grupo.</li>
+                        {% endfor %}
+                    </div>
+                </fieldset>
+            
+                <button type="submit" class="btn btn-primary">Entrar no Grupo</button>
+            </form>
+        
+        </div>
+
+    </div>
+</div>
+{% endblock %}

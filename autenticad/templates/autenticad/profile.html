@@ -1,0 +1,188 @@
+<!-- autenticad/templates/autenticad/profile.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="mb-4">
+        <h1 class="titulo-pagina">Perfil de {{ user.username }}</h1>
+
+        <div class="col">
+
+            <div class="row">
+                <a href="{% url 'autenticad:dashboard' %}" class="btn btn-dark mt-3">Voltar ao Dashboard</a>
+            </div>
+            <br>
+            <div class="row">
+                <!-- Foto de Perfil -->
+                <div class="bg-info rounded p-3">
+                    <h5 class="rgbtextg" data-bs-toggle="collapse" data-bs-target="#fotoperfil" aria-expanded="false" aria-controls="resumoPerfil" style="cursor: pointer;">
+                        Clique para ver <br>Foto de Perfil
+                    </h5>
+                    <div id="fotoperfil" class="collapse">
+                        {% if user.profile.profile_picture %}
+                        <img src="{{ user.profile.profile_picture.url }}" alt="Foto de Perfil" width="150">
+                        {% else %}
+                            <p class="rgbtextb">Sem foto de perfil</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- fim Foto de Perfil -->
+                <br>
+                <!-- info pessoal -->
+                <div class="bg-info rounded p-3">
+                    <h5 class="rgbtextg" data-bs-toggle="collapse" data-bs-target="#infopessoal" aria-expanded="false" aria-controls="resumoPerfil" style="cursor: pointer;">
+                        Clique para ver <br>Minhas Informações
+                    </h5>
+                    <div id="infopessoal" class="collapse">
+                        <p class="rgbtextb"><strong>Username:</strong> {{ user.username }}</p>
+                        <p class="rgbtextb"><strong>Email:</strong> {{ user.email }}</p>
+                        <p class="rgbtextb"><strong>Primeiro Nome:</strong> {{ user.first_name }}</p>
+                        <p class="rgbtextb"><strong>Último Nome:</strong> {{ user.last_name }}</p>
+                        {% if user.profile.birth_date %}
+                            <p><strong>Data de Nascimento:</strong> {{ user.profile.birth_date }}</p>
+                        {% endif %}
+                        {% if user.profile.city %}
+                            <p><strong>Cidade:</strong> {{ user.profile.city }}</p>
+                        {% endif %}
+                        {% if user.profile.state %}
+                            <p><strong>Estado:</strong> {{ user.profile.state }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- fim info pessoal -->
+                <br>
+                <!-- Biografia -->
+                <div class="bg-info rounded p-3">
+                    <h5 class="rgbtextg" data-bs-toggle="collapse" data-bs-target="#Biografia" aria-expanded="false" aria-controls="resumoPerfil" style="cursor: pointer;">
+                        Clique para ver <br>Minha Biografia
+                    </h5>
+                    <div id="Biografia" class="collapse">
+                        {% if user.profile.bio %}
+                        <p>{{ user.profile.bio }}</p>
+                    {% endif %}
+                    </div>
+                </div>
+                <!-- fim Biografia -->
+                <br>
+                <!-- Como Conheceu o Site -->
+                <div class="bg-info rounded p-3">
+                    <h5 class="rgbtextg" data-bs-toggle="collapse" data-bs-target="#Conheceu" aria-expanded="false" aria-controls="resumoPerfil" style="cursor: pointer;">
+                        Como Conheci  <br>o Site?
+                    </h5>
+                    <div id="Conheceu" class="collapse">
+                        {% if user.profile.how_did_you_know %}
+                        <p>{{ user.profile.how_did_you_know }}</p>
+                    {% endif %}
+                    </div>
+                </div>
+                <!-- fim Como Conheceu o Site -->
+                <br>
+                <!-- Redes sociais -->
+                <div class="bg-info rounded p-3">
+                    <h5 class="rgbtextg" data-bs-toggle="collapse" data-bs-target="#redesocial" aria-expanded="false" aria-controls="resumoPerfil" style="cursor: pointer;">
+                        Clique para ver <br>Minhas Redes Sociais
+                    </h5>
+                    <div id="redesocial" class="collapse">
+                        <p class="rgbtextb">
+                            {% if user.profile.facebook %}
+                            <p><strong>Facebook:</strong> <a href="{{ user.profile.facebook }}" target="_blank">{{ user.profile.facebook }}</a></p>
+                            {% endif %}
+                        </p>
+
+                        <p class="rgbtextb">
+                            {% if user.profile.instagram %}
+                            <p><strong>Instagram:</strong> <a href="{{ user.profile.instagram }}" target="_blank">{{ user.profile.instagram }}</a></p>
+                            {% endif %}
+                        </p>
+
+                        <p class="rgbtextb">
+                            {% if user.profile.twitter %}
+                            <p><strong>Twitter:</strong> <a href="{{ user.profile.twitter }}" target="_blank">{{ user.profile.twitter }}</a></p>
+                            {% endif %}
+                        </p>
+
+                        <p class="rgbtextb">
+                            {% if user.profile.linkedin %}
+                            <p><strong>LinkedIn:</strong> <a href="{{ user.profile.linkedin }}" target="_blank">{{ user.profile.linkedin }}</a></p>
+                            {% endif %}
+                        </p>
+
+                        <p class="rgbtextb">
+                            {% if user.profile.tiktok %}
+                            <p><strong>TikTok:</strong> <a href="{{ user.profile.tiktok }}" target="_blank">{{ user.profile.tiktok }}</a></p>
+                            {% endif %}
+                        </p>
+
+                        <p class="rgbtextb">
+                            {% if user.profile.youtube %}
+                            <p><strong>YouTube:</strong> <a href="{{ user.profile.youtube }}" target="_blank">{{ user.profile.youtube }}</a></p>
+                            {% endif %}
+                        </p>
+
+                        <p class="rgbtextb">
+                            {% if user.profile.github %}
+                            <p><strong>GitHub:</strong> <a href="{{ user.profile.github }}" target="_blank">{{ user.profile.github }}</a></p>
+                            {% endif %}
+                        </p>
+
+                        <p class="rgbtextb">
+                            {% if user.profile.pinterest %}
+                            <p><strong>Pinterest:</strong> <a href="{{ user.profile.pinterest }}" target="_blank">{{ user.profile.pinterest }}</a></p>
+                            {% endif %}
+                        </p>
+
+                        <p class="rgbtextb">
+                            {% if user.profile.flickr %}
+                            <p><strong>Flickr:</strong> <a href="{{ user.profile.flickr }}" target="_blank">{{ user.profile.flickr }}</a></p>
+                            {% endif %}
+                        </p>
+
+                        <p class="rgbtextb">
+                            {% if user.profile.deviantart %}
+                            <p><strong>DeviantArt:</strong> <a href="{{ user.profile.deviantart }}" target="_blank">{{ user.profile.deviantart }}</a></p>
+                            {% endif %}
+                        </p>
+
+                        <p class="rgbtextb">
+                            {% if user.profile.fivehundredpx %}
+                            <p><strong>500px:</strong> <a href="{{ user.profile.fivehundredpx }}" target="_blank">{{ user.profile.fivehundredpx }}</a></p>
+                            {% endif %}
+                        </p>
+
+                        <p class="rgbtextb">
+                            {% if user.profile.unsplash %}
+                            <p><strong>Unsplash:</strong> <a href="{{ user.profile.unsplash }}" target="_blank">{{ user.profile.unsplash }}</a></p>
+                            {% endif %}
+                        </p>
+
+                        <p class="rgbtextb">
+                            {% if user.profile.behance %}
+                            <p><strong>Behance:</strong> <a href="{{ user.profile.behance }}" target="_blank">{{ user.profile.behance }}</a></p>
+                            {% endif %}
+                        </p>
+
+                        <p class="rgbtextb">
+                            {% if user.profile.dribbble %}
+                            <p><strong>Dribbble:</strong> <a href="{{ user.profile.dribbble }}" target="_blank">{{ user.profile.dribbble }}</a></p>
+                            {% endif %}
+                        </p>
+
+                        <p class="rgbtextb">
+                            {% if user.profile.vimeo %}
+                            <p><strong>Vimeo:</strong> <a href="{{ user.profile.vimeo }}" target="_blank">{{ user.profile.vimeo }}</a></p>
+                            {% endif %}
+                        </p>
+
+                    </div>
+                </div>
+                <!-- fim Redes sociais -->
+            </div>
+            <br>
+            <div class="row">
+                <a href="{% url 'autenticad:dashboard' %}" class="btn btn-dark mt-3">Voltar ao Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

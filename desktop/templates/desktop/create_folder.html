@@ -1,0 +1,29 @@
+<!-- desktop/templates/desktop/create_folder.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="text-center mb-4">
+
+    <h1 class="titulo-pagina">Criar Nova Pasta</h1>
+
+    <!-- Formulário para criar nova pasta -->
+    <form method="POST">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="folder_name"><h6 class="rgbtextb">Nome da Pasta</h6></label><br>
+        <input type="text" class="form-control" id="folder_name" name="folder_name" placeholder="Digite o nome da pasta" required>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-success btn-lg btn-block">Criar Pasta</button>
+    </form>
+
+    <hr>
+    <!-- Link para o dashboard do fotógrafo -->
+    <p><a href="{% url 'reposith:fotografo_dashboard' %}" class="btn btn-success">Ir para o Dashboard do Fotógrafo</a></p>
+
+
+  </div>
+</div>
+{% endblock %}

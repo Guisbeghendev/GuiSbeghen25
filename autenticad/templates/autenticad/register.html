@@ -1,0 +1,62 @@
+<!-- autenticad/templates/autenticad/register.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="titulo-pagina">Faça seu cadastro!</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="container text-start">
+                <div>
+                    <label for="{{ form.username.id_for_label }}"> 
+                        <h6 class="rgbtextb">Nome de usuário:</h6>
+                    </label>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <div class="errors">{{ form.username.errors }}</div>
+                    {% endif %}
+                </div>
+                <br>
+                <div>
+                    <label for="{{ form.email.id_for_label }}">
+                        <h6 class="rgbtextb">E-mail:</h6>
+                    </label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="errors">{{ form.email.errors }}</div>
+                    {% endif %}
+                </div>
+                <br>
+                <div>
+                    <label for="{{ form.password1.id_for_label }}">
+                        <h6 class="rgbtextb">Senha:</h6>
+                    </label>
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                        <div class="errors">{{ form.password1.errors }}</div>
+                    {% endif %}
+                </div>
+                <br>
+                <div>
+                    <label for="{{ form.password2.id_for_label }}">
+                        <h6 class="rgbtextb">Confirmar Senha:</h6>
+                    </label>
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}
+                        <div class="errors">{{ form.password2.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-dark">Cadastrar</button>
+        </form>
+        <br>
+        <p>Já tem uma conta? <a href="{% url 'autenticad:login' %}">Faça login</a>.</p>
+
+    </div>
+
+</div>
+{% endblock %}

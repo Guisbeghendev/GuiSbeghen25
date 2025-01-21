@@ -1,0 +1,64 @@
+<!-- desktop/templates/desktop/upload.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="text-center mb-4">
+
+    <div class="container">
+
+      <h1 class="titulo-pagina">Envio de Arquivos</h1>
+
+      <!-- Formulário para selecionar pasta e enviar arquivos -->
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="folder_name"><h6 class="rgbtextb">Selecione a Pasta</h6></label>
+          <select name="folder_name" id="folder_name" class="form-control" required>
+            <option value=""><h6 class="rgbtextb">Selecione uma pasta</h6></option>
+            {% for folder in folders %}
+              <option value="{{ folder }}">{{ folder }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="files"><h6 class="rgbtextb">Selecione os Arquivos</h6></label>
+          <input type="file" name="files" id="files" multiple class="form-control" required>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-success">Enviar Arquivos</button>
+      </form>
+      <hr>
+      <!-- Exibir os arquivos selecionados -->
+      <h6 class="rgbtextb">Ver Arquivos Selecionados:</h6>
+      <ul id="selected-files">
+        <!-- Usando JavaScript para mostrar arquivos selecionados -->
+      </ul>
+
+      <hr>
+      <!-- Link para o dashboard do fotógrafo -->
+      <p><a href="{% url 'reposith:fotografo_dashboard' %}" class="btn btn-success">Ir para o Dashboard do Fotógrafo</a></p>
+  
+
+    </div>
+
+    <script>
+      // Exibir os arquivos selecionados
+      document.getElementById('files').addEventListener('change', function() {
+        const fileList = this.files;
+        const fileListElement = document.getElementById('selected-files');
+        fileListElement.innerHTML = '';  // Limpar lista existente
+
+        for (let i = 0; i < fileList.length; i++) {
+          const li = document.createElement('li');
+          li.textContent = fileList[i].name;
+          fileListElement.appendChild(li);
+        }
+      });
+    </script>
+
+  </div>
+</div>
+{% endblock %}

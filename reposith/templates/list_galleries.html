@@ -1,0 +1,89 @@
+<!-- reposith/templates/list_galleries.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+
+        <div class="container">
+            <h1 class="titulo-pagina">Galerias Criadas</h1>
+
+            {% if galleries %}
+            <div class="container">
+                <div class="row">
+                    {% for gallery in galleries %}
+                        <div class="col-md-4 mb-4">
+                            <!-- Card para cada galeria -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ gallery.name }}</h5>
+                                    <p class="card-text">{{ gallery.event_date }}</p>
+                                    
+                                    <!-- Badge de status -->
+                                    {% if gallery.is_finalized %}
+                                        <span class="badge badge-success">Finalizada</span>
+                                    {% else %}
+                                        <span class="badge badge-warning">Não Finalizada</span>
+                                    {% endif %}
+                                    
+                                    <!-- Botões de Visualizar e Excluir -->
+                                    <div class="d-flex justify-content-between mt-3">
+                                        <a href="{% url 'reposith:view_gallery' gallery.id %}" class="btn btn-info btn-sm">Visualizar</a>
+                                        <form method="POST" action="{% url 'reposith:delete_gallery' gallery.id %}" style="display:inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% else %}
+                <p>Não há galerias criadas ainda.</p>
+            {% endif %}
+            
+
+
+            <hr>
+
+            <!-- Formulário de filtros -->
+            <form method="GET" class="mb-3">
+                <div class="form-row">
+                    <div class="col">
+                        <label for="year">Ano:</label>
+                        <select name="year" id="year" class="form-control">
+                            <option value="">Selecione um ano</option>
+                            {% for year in years %}
+                                <option value="{{ year }}" {% if year == selected_year %}selected{% endif %}>{{ year }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="col">
+                        <label for="finalized">Finalizada:</label>
+                        <select name="finalized" id="finalized" class="form-control">
+                            <option value="">Todas</option>
+                            <option value="true" {% if request.GET.finalized == 'true' %}selected{% endif %}>Finalizadas</option>
+                            <option value="false" {% if request.GET.finalized == 'false' %}selected{% endif %}>Não Finalizadas</option>
+                        </select>
+                    </div>
+
+                    <div class="col">
+                        <label for="order">Ordenar:</label>
+                        <select name="order" id="order" class="form-control">
+                            <option value="asc" {% if request.GET.order == 'asc' %}selected{% endif %}>Cronológica (Ascendente)</option>
+                            <option value="desc" {% if request.GET.order == 'desc' %}selected{% endif %}>Cronológica (Descendente)</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Filtrar</button>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

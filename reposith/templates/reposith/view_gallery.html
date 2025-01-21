@@ -1,0 +1,107 @@
+<!-- templates/reposith/view_gallery.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-2">
+
+    <div class="col">
+
+        <div class="row">
+            <!-- cabeçalho -->
+            <div class="text-center mb-5 bg-light rounded">
+                <h1 class="titulo-pagina">{{ gallery.name }}</h1>
+                <h6 class="rgbtextg">Descrição: {{ gallery.description }}</h6>
+                <h6 class="rgbtextb">Data do Evento: {{ gallery.event_date }}</h6>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Galeria de Imagens -->
+            <div class="row g-3">
+                {% for media in page_obj %}
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                        <div class="image-container">
+                            <!-- Link para a imagem, com atributos do Fancybox -->
+                            <a href="{{ media.file_path.url }}" data-fancybox="gallery-{{ gallery.id }}" data-caption="Imagem {{ media.id }}">
+                                <img src="{{ media.file_path.url }}" class="img-fluid rounded shadow-sm" alt="Imagem {{ media.id }}">
+                            </a>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p class="text-center text-muted w-100">Não há imagens associadas a esta galeria.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Paginação -->
+            <div class="d-flex justify-content-center mt-5">
+                {% if page_obj.has_previous %}
+                    <a class="btn btn-primary me-2" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                {% endif %}
+                <span> Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }} </span>
+                {% if page_obj.has_next %}
+                    <a class="btn btn-primary ms-2" href="?page={{ page_obj.next_page_number }}">Próximo</a>
+                {% endif %}
+            </div>
+        </div>
+
+    <!-- Link para voltar para a lista de galerias -->
+    <div class="text-center mt-5">
+        <a href="{% url 'reposith:meualbum' user.id %}" class="btn btn-dark btn-block">Meus Álbuns</a>
+    </div>
+
+
+</div>
+</div>
+
+
+
+<script>
+    // Inicialização do Fancybox
+    $(document).ready(function() {
+        $('[data-fancybox="gallery-{{ gallery.id }}"]').fancybox({
+            buttons: [
+                'zoom',
+                'slideShow',
+                'thumbs',
+                'close'
+            ],
+            loop: true,
+            protect: true
+        });
+    });
+</script>
+
+<style>
+    /* Estiliza o fundo dos cards das imagens */
+    .image-container {
+        padding: 5px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .image-container img {
+        border-radius: 5px;
+        object-fit: cover;
+        max-height: 100%;
+        max-width: 100%;
+    }
+
+    /* Ajusta altura das miniaturas */
+    .image-container {
+        height: 150px;
+    }
+
+    /* Override para tamanhos responsivos */
+    @media (max-width: 576px) {
+        .image-container {
+            height: 100px;
+        }
+    }
+</style>
+
+{% endblock %}

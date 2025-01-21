@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+
+        <h1 class="titulo-pagina">Meus Álbuns Disponíveis</h1>
+
+        <div class="container bg-light">
+
+            <div class="col">
+
+                <div class="row">
+                    <!-- Listagem de Galerias por Grupo -->
+                    {% for group_name, galleries in grouped_galleries.items %}
+                    <div class="mb-5">
+                        <h3 class="rgbtextb">Grupo: {{ group_name }}</h3>
+                        <hr>
+                        <ul class="list-group">
+                            {% for gallery in galleries %}
+                                <li class="list-group-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>{{ gallery.name }}</strong><br>
+                                            <small>Data do Evento: {{ gallery.event_date }}</small><br>
+                                            <small>Publicado em: {{ gallery.publication_date }}</small>
+                                        </div>
+                                        <a href="{% url 'reposith:view_gallery' gallery.id %}" class="btn btn-success btn-sm">Ver Galeria</a>
+                                    </div>
+                                </li>
+                            {% empty %}
+                                <li class="list-group-item text-muted">Não há galerias neste grupo.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% empty %}
+                        <p class="text-muted">Você não tem acesso a nenhuma galeria.</p>
+                    {% endfor %}
+                </div>
+                <hr>
+                <div class="row">
+                    <a href="{% url 'reposith:meualbum' user.id %}" class="btn btn-dark btn-block">Voltar para Meus Álbuns</a>
+                </div>
+                <hr>
+                <div class="row">
+                    <h3 class="rgbtextb">Ou refine sua pesquisa...</h3>
+                    <br>
+                    <!-- Filtros -->
+                    <form method="get" class="mb-4">
+                        <div class="row">
+                            <!-- Filtro por Nome -->
+                            <div class="col-md-3 mb-2">
+                                <label for="name" class="form-label">Nome da Galeria</label>
+                                <input type="text" id="name" name="name" class="form-control" value="{{ request.GET.name }}">
+                            </div>
+
+                            <!-- Filtro por Data do Evento -->
+                            <div class="col-md-3 mb-2">
+                                <label for="event_date" class="form-label">Data do Evento</label>
+                                <input type="date" id="event_date" name="event_date" class="form-control" value="{{ request.GET.event_date }}">
+                            </div>
+
+                            <!-- Filtro por Ano do Evento -->
+                            <div class="col-md-3 mb-2">
+                                <label for="event_year" class="form-label">Ano do Evento</label>
+                                <input type="number" id="event_year" name="event_year" class="form-control" placeholder="YYYY" value="{{ request.GET.event_year }}">
+                            </div>
+
+                            <!-- Filtro por Mês do Evento -->
+                            <div class="col-md-3 mb-2">
+                                <label for="event_month" class="form-label">Mês do Evento</label>
+                                <select id="event_month" name="event_month" class="form-control">
+                                    <option value="">Selecione um mês</option>
+                                    {% for month_number, month_name in months %}
+                                        <option value="{{ month_number }}" {% if request.GET.event_month == month_number|stringformat:"s" %}selected{% endif %}>
+                                            {{ month_name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <!-- Filtro por Data de Publicação -->
+                            <div class="col-md-3 mb-2">
+                                <label for="publication_date" class="form-label">Data de Publicação</label>
+                                <input type="date" id="publication_date" name="publication_date" class="form-control" value="{{ request.GET.publication_date }}">
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
+                            <!-- Link para limpar filtros -->
+                            <a href="{% url 'reposith:album' group.id user.id %}" class="btn btn-secondary">Limpar Filtros</a>
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+   
+        </div>
+
+</div>
+{% endblock %}

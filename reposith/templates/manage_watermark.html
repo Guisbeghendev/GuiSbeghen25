@@ -1,0 +1,60 @@
+<!-- reposith/templates/manage_watermark.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+Gerenciar Marca d'Água
+{% endblock %}
+
+{% block content %}
+<h2>Gerenciar Marca d'Água</h2>
+
+<!-- Formulário para Adicionar Marca d'Água -->
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Salvar Marca d'Água</button>
+</form>
+
+<hr>
+
+<h3>Marcas d'Água Registradas:</h3>
+
+{% if watermarks %}
+    <ul id="watermark-list" style="list-style-type: none; padding: 0;">
+        {% for watermark in watermarks %}
+            <li style="margin-bottom: 10px;">
+                <!-- Nome da marca d'água como link clicável -->
+                <a href="#" 
+                   onclick="showThumbnail('{{ watermark.thumbnail.url }}')"
+                   style="text-decoration: none; color: blue; font-weight: bold;">
+                    {% if watermark.name %}
+                        {{ watermark.name }}
+                    {% else %}
+                        Marca d'Água sem nome
+                    {% endif %}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Nenhuma marca d'água registrada.</p>
+{% endif %}
+
+<!-- Área para exibir a miniatura ao lado -->
+<div id="thumbnail-display" style="margin-top: 20px; border: 1px solid #ccc; padding: 10px; width: fit-content;">
+    <p>Clique no nome de uma marca d'água para visualizar a miniatura.</p>
+</div>
+
+<!-- Script para carregar dinamicamente a miniatura -->
+<script>
+    function showThumbnail(thumbnailUrl) {
+        const displayArea = document.getElementById('thumbnail-display');
+        if (thumbnailUrl) {
+            displayArea.innerHTML = `<img src="${thumbnailUrl}" alt="Miniatura da Marca d'Água" style="max-width: 200px; max-height: 200px;">`;
+        } else {
+            displayArea.innerHTML = `<p>Sem miniatura disponível.</p>`;
+        }
+    }
+</script>
+{% endblock %}

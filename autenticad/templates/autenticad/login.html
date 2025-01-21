@@ -1,0 +1,43 @@
+<!-- autenticad/templates/autenticad/login.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="titulo-pagina">Faça seu Login!</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="container text-start">
+                <div class="form-group">
+                    <label for="{{ form.username.id_for_label }}" class="form-label">
+                        <h6 class="rgbtextb">Usuário:</h6>
+                    </label>
+                    {{ form.username }} <!-- Campo com a classe 'form-control' aplicada -->
+                    {% if form.username.errors %}
+                        <div class="errors">{{ form.username.errors }}</div>
+                    {% endif %}
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="{{ form.password.id_for_label }}" class="form-label">
+                        <h6 class="rgbtextb">Senha:</h6>
+                    </label>
+                    {{ form.password }} <!-- Campo com a classe 'form-control' aplicada -->
+                    {% if form.password.errors %}
+                        <div class="errors">{{ form.password.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-dark">Entrar</button>
+        </form>
+        <br>
+        {% if form.non_field_errors %}
+            <p style="color: red;">{{ form.non_field_errors }}</p>
+        {% endif %}
+        <p>Não tem uma conta? <a href="{% url 'autenticad:register' %}">Cadastre-se</a>.</p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+<!-- reposith/templates/create_gallery.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+
+        <div class="container">
+
+            <h1 class="titulo-pagina">Criar Galeria</h1>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <!-- Diretórios disponíveis -->
+                <div class="mb-3">
+                    <label for="directory_id" class="form-label"><h6 class="rgbtextb">Escolha o Diretório</h6></label>
+                    <select name="directory_id" id="directory_id" class="form-select" required>
+                        {% if directories %}
+                            {% for directory in directories %}
+                                <option value="{{ directory.id }}">{{ directory.name }}</option>
+                            {% endfor %}
+                        {% else %}
+                            <option value="" disabled>Nenhum diretório disponível</option>
+                        {% endif %}
+                    </select>
+                </div>
+
+                <!-- Nome da galeria -->
+                <div class="mb-3">
+                    <label for="gallery_name" class="form-label"><h6 class="rgbtextb">Nome da Galeria</h6></label>
+                    <input type="text" name="gallery_name" id="gallery_name" class="form-control" required>
+                </div>
+
+                <!-- Data do evento -->
+                <div class="mb-3">
+                    <label for="event_date" class="form-label"><h6 class="rgbtextb">Data do Evento</h6></label>
+                    <input type="date" name="event_date" id="event_date" class="form-control" required>
+                </div>
+
+                <!-- Descrição da galeria -->
+                <div class="mb-3">
+                    <label for="description" class="form-label"><h6 class="rgbtextb">Descrição</h6></label>
+                    <textarea name="description" id="description" class="form-control"></textarea>
+                </div>
+
+                <!-- Marca d'água -->
+                <div class="mb-3">
+                    <label for="watermark_id" class="form-label"><h6 class="rgbtextb">Escolha a Marca d'Água</h6></label>
+                    <select name="watermark_id" id="watermark_id" class="form-select">
+                        <option value="">Nenhuma Marca d'Água</option>
+                        {% for watermark in watermarks %}
+                            <option value="{{ watermark.id }}">{{ watermark.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Grupo -->
+                <div class="mb-3">
+                    <label for="group_id" class="form-label"><h6 class="rgbtextb">Escolha o Grupo</h6></label>
+                    <select name="group_id" id="group_id" class="form-select">
+                        {% for group in groups %}
+                            <option value="{{ group.id }}">{{ group.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-success">Criar Galeria</button>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

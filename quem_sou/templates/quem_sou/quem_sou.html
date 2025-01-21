@@ -1,0 +1,39 @@
+<!-- quem_sou/templates/quem_sou/quem_sou.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Quem Sou{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="titulo-pagina">Quem Sou</h1>
+    </div>
+    
+    <!-- Perfil Pessoal -->
+    <div class="row justify-content-center">
+        <div class="col-md-4 text-center">
+            <!-- Foto de Perfil -->
+            <img src="{% static 'images/perfil.jpeg' %}" class="img-fluid rounded-circle mb-4" 
+            alt="Foto de Perfil" style="max-width: 200px; height: 200px; border: 3px solid green; border-radius: 50%;">        
+            
+            <!-- Informações Pessoais -->
+            <h3 class="rgbtextb">Guilherme Sbeghen Pelegrini</h3>
+            <p class="rgbtextr"><strong>Funcionário Pùblico há mais de década...</strong></p>
+                        
+            <!-- Habilidades ou Experiência -->
+            <h4><b><u>Formação</u></b></h4>
+            <ul class="list-unstyled">
+                <li class="rgbtextg">Formante em Tecnologia da Informação</li>
+                <li class="rgbtextb">Aspirante a Engenheiro da Computação</li>
+                <li class="rgbtextr">Tentante a Tecnologia de Recursos Humanos </li>
+                <li class="rgbtextg">Avante no Pós em Desenvolvimento em Aplicações WEB</li>
+                <li class="rgbtextb">Amante de fotografia</li>
+                <li class="rgbtextr">Brincante com percussão</li>
+            </ul>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

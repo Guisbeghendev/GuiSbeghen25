@@ -1,0 +1,17 @@
+<!-- desktop/templates/desktop/desktop.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>Gerenciador de Arquivos</h1>
+
+    <!-- Botões de Ação -->
+    <div class="mt-3">
+      <a href="{% url 'desktop:create_folder' %}" class="btn btn-primary">Criar Nova Pasta</a>
+      <a href="{% url 'desktop:upload_files' %}" class="btn btn-secondary">Fazer Upload de Arquivos</a>
+      <!-- Link para a Dashboard de Fotógrafo -->
+      <a href="{% url 'reposith:fotografo_dashboard' %}" class="btn btn-info">Ir para a Dashboard de Fotógrafo</a>
+    </div>
+  </div>
+{% endblock %}

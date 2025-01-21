@@ -1,0 +1,190 @@
+<!-- autenticad/templates/autenticad/edit_profile.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="mb-4">
+
+        <h1 class="titulo-pagina">Editar Perfil {{ user.username }}</h1>
+
+        <div class="col">
+
+            <div class="row">
+                <a href="{% url 'autenticad:perfil' %}" class="btn btn-dark btn-block">Voltar para Perfil</a>
+            </div>
+            <br>
+
+            <div class="row">
+
+                <!-- Link para editar informações de autenticação -->
+                <div class="container text-center bg-secondary p-3">
+                    <h4>Editar Informações de Autenticação</h4>
+                    <h5 class="text-light">Como Nome de Usuário; Primeiro nome e sobrenome; E-mail.</h5>
+                    <a href="{% url 'autenticad:edit_user' %}" class="btn btn-danger">Editar Informações de Autenticação</a>
+                </div>
+
+                <br><br><hr><br>
+
+                <!-- form para editar o perfil -->
+                <form method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <!-- Exibindo erros de formulário -->
+                        {% if profile_form.errors %}
+                            <div class="col-12">
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        {% for field in profile_form %}
+                                            {% for error in field.errors %}
+                                                <li>{{ error }}</li>
+                                            {% endfor %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endif %}
+    
+                        <!-- Campos do Profile -->
+
+                        <div class="text-light text-center bg-warning rounded">
+                            <h3>Estes campos não são obrigatórios preencher!</h3>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="id_birth_date" class="form-label">
+                                <h6 class="rgbtextb">Data de Nascimento</h6>
+                            </label>
+                            <input type="date" name="birth_date" class="form-control" id="id_birth_date" value="{{ profile_form.birth_date.value|default:'' }}">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="id_city" class="form-label">
+                                <h6 class="rgbtextb">Cidade</h6>
+                            </label>
+                            <input type="text" name="city" class="form-control" id="id_city" value="{{ profile_form.city.value|default:'' }}">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="id_state" class="form-label">
+                                <h6 class="rgbtextb">Estado</h6>
+                            </label>
+                            <input type="text" name="state" class="form-control" id="id_state" value="{{ profile_form.state.value|default:'' }}">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="id_profile_picture" class="form-label">
+                                <h6 class="rgbtextb">Foto de Perfil</h6>
+                            </label>
+                            <input type="file" name="profile_picture" class="form-control" id="id_profile_picture">
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="id_bio" class="form-label">
+                                <h6 class="rgbtextb">Biografia</h6>
+                            </label>
+                            <textarea name="bio" class="form-control" id="id_bio">{{ profile_form.bio.value|default:'' }}</textarea>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="id_how_did_you_know" class="form-label">
+                                <h6 class="rgbtextb">Como nos conheceu?</h6>
+                            </label>
+                            <textarea name="how_did_you_know" class="form-control" id="id_how_did_you_know">{{ profile_form.how_did_you_know.value|default:'' }}</textarea>
+                        </div>
+
+                        <!-- Botão de salvar -->
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">Salvar</button>
+                        </div>
+
+                        <!-- Redes Sociais -->
+                        <div class="bg-info p-3">
+
+                            <h6 class="rgbtextg" data-bs-toggle="collapse" data-bs-target="#redessociais" aria-expanded="false" aria-controls="resumoPerfil" style="cursor: pointer;">
+                                Clique para editar Redes Sociais - Não é obrigatório!
+                            </h6>
+                            <div id="redessociais" class="collapse">
+                                <div class="col-md-6">
+                                    <label for="id_facebook" class="form-label">Facebook</label>
+                                    <input type="text" name="facebook" class="form-control" id="id_facebook" value="{{ profile_form.facebook.value|default:'' }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="id_instagram" class="form-label">Instagram</label>
+                                    <input type="text" name="instagram" class="form-control" id="id_instagram" value="{{ profile_form.instagram.value|default:'' }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="id_twitter" class="form-label">Twitter</label>
+                                    <input type="text" name="twitter" class="form-control" id="id_twitter" value="{{ profile_form.twitter.value|default:'' }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="id_linkedin" class="form-label">LinkedIn</label>
+                                    <input type="text" name="linkedin" class="form-control" id="id_linkedin" value="{{ profile_form.linkedin.value|default:'' }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="id_tiktok" class="form-label">TikTok</label>
+                                    <input type="text" name="tiktok" class="form-control" id="id_tiktok" value="{{ profile_form.tiktok.value|default:'' }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="id_youtube" class="form-label">YouTube</label>
+                                    <input type="text" name="youtube" class="form-control" id="id_youtube" value="{{ profile_form.youtube.value|default:'' }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="id_github" class="form-label">GitHub</label>
+                                    <input type="text" name="github" class="form-control" id="id_github" value="{{ profile_form.github.value|default:'' }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="id_pinterest" class="form-label">Pinterest</label>
+                                    <input type="text" name="pinterest" class="form-control" id="id_pinterest" value="{{ profile_form.pinterest.value|default:'' }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="id_flickr" class="form-label">Flickr</label>
+                                    <input type="text" name="flickr" class="form-control" id="id_flickr" value="{{ profile_form.flickr.value|default:'' }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="id_deviantart" class="form-label">DeviantArt</label>
+                                    <input type="text" name="deviantart" class="form-control" id="id_deviantart" value="{{ profile_form.deviantart.value|default:'' }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="id_fivehundredpx" class="form-label">500px</label>
+                                    <input type="text" name="fivehundredpx" class="form-control" id="id_fivehundredpx" value="{{ profile_form.fivehundredpx.value|default:'' }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="id_unsplash" class="form-label">Unsplash</label>
+                                    <input type="text" name="unsplash" class="form-control" id="id_unsplash" value="{{ profile_form.unsplash.value|default:'' }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="id_behance" class="form-label">Behance</label>
+                                    <input type="text" name="behance" class="form-control" id="id_behance" value="{{ profile_form.behance.value|default:'' }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="id_dribbble" class="form-label">Dribbble</label>
+                                    <input type="text" name="dribbble" class="form-control" id="id_dribbble" value="{{ profile_form.dribbble.value|default:'' }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="id_vimeo" class="form-label">Vimeo</label>
+                                    <input type="text" name="vimeo" class="form-control" id="id_vimeo" value="{{ profile_form.vimeo.value|default:'' }}">
+                                </div>
+                            </div>
+                            
+                            <!-- Botão de salvar -->
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg">Salvar</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            <br>
+            <div class="row">
+                <a href="{% url 'autenticad:perfil' %}" class="btn btn-dark btn-block">Voltar para Perfil</a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}
