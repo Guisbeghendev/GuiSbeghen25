@@ -152,8 +152,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
-STATIC_URL = 'static/'  # Se quiser uma pasta diferente, altere aqui
-STATIC_ROOT = '/var/www/guisbeghen.com.br/html/static/' #em produção
+STATIC_URL = '/static/'  # Se quiser uma pasta diferente, altere aqui
 STATICFILES_DIRS = [BASE_DIR / 'static']  # Pode incluir diretórios adicionais de arquivos estáticos
 
 MEDIA_URL = '/media/'  # URL para acessar os arquivos na web
