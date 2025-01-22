@@ -61,7 +61,6 @@ INSTALLED_APPS = [
     'django_filters'
 ]
 
-TAILWIND_APP_NAME = 'theme'  # Substitua 'theme' pelo nome que você quer para o app Tailwind
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -169,3 +168,23 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'  # Para logout, redirecionar para a home (ou outro lugar)
 
 DEFAULT_IMAGES_PER_PAGE = 24
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': '/var/log/django/guisbeghen.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
