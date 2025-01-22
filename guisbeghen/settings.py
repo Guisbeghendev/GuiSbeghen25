@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'default-secret-key') # para produção
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DJANGO_DEBUG', default=True, cast=bool)  # Altere para False em produção
+DEBUG = config('DJANGO_DEBUG', default=False, cast=bool)  # Altere para False em produção
 
 SECURE_HSTS_SECONDS = 3600
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
@@ -152,12 +152,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
+STATIC_ROOT = '/var/www/guisbeghen.com.br/static'
 STATIC_URL = '/static/'  # Se quiser uma pasta diferente, altere aqui
 STATICFILES_DIRS = [BASE_DIR / 'static']  # Pode incluir diretórios adicionais de arquivos estáticos
 
 MEDIA_URL = '/media/'  # URL para acessar os arquivos na web
 # MEDIA_ROOT # = os.path.join(BASE_DIR, 'media')  # Diretório no sistema de arquivos onde os arquivos serão armazenados em desenvolvimento
-MEDIA_ROOT = '/var/www/guisbeghen.com.br/html/media/' # em produção
+MEDIA_ROOT = '/var/www/guisbeghen.com.br/media/' # em produção
 
 
 # Default primary key field type
