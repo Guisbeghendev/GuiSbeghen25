@@ -36,9 +36,7 @@ CSRF_COOKIE_SECURE = True
 X_FRAME_OPTIONS = 'DENY'
 
 
-#ALLOWED_HOSTS = ['guisbeghen.com.br', 'www.guisbeghen.com.br', '77.37.68.104']  # Adicione os domínios permitidos em produção, por exemplo: ['meusite.com']
-                                                                                # ['127.0.0.1', 'localhost'] para desenvolvimento
-ALLOWED_HOSTS = config('DJANGO_ALLOWED_HOSTS', default='').split(',') #para desenvolvimento com .env
+ALLOWED_HOSTS = config('DJANGO_ALLOWED_HOSTS', default='guisbeghen.com.br,www.guisbeghen.com.br,127.0.0.1,localhost, 77.37.68.104').split(',')
 
 
 

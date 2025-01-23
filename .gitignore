@@ -7,4 +7,3 @@ __pycache__/
 *.env
 
 # Arquivos estáticos e mídias
-staticfiles/
