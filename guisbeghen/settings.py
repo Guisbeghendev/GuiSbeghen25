@@ -35,10 +35,7 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 X_FRAME_OPTIONS = 'DENY'
 
-
 ALLOWED_HOSTS = config('DJANGO_ALLOWED_HOSTS', default='guisbeghen.com.br,www.guisbeghen.com.br,127.0.0.1,localhost, 77.37.68.104').split(',')
-
-
 
 SITE_NAME = 'GuiSbeghen'
 
@@ -58,7 +55,6 @@ INSTALLED_APPS = [
     'desktop',
     'django_filters'
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -97,7 +93,6 @@ TEMPLATES = [
     },
 ]
 
-
 WSGI_APPLICATION = 'guisbeghen.wsgi.application'
 
 # Database
@@ -113,7 +108,6 @@ DATABASES = {
     }
 }
 
-
 # cache pra o contador de acessos
 CACHES = {
     'default': {
@@ -121,7 +115,6 @@ CACHES = {
         'LOCATION': 'unique-snowflake',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -157,7 +150,6 @@ MEDIA_URL = '/media/'  # URL para acessar os arquivos na web
 # MEDIA_ROOT # = os.path.join(BASE_DIR, 'media')  # Diretório no sistema de arquivos onde os arquivos serão armazenados em desenvolvimento
 MEDIA_ROOT = '/var/www/guisbeghen.com.br/media/' # em produção
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -166,7 +158,6 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'  # Para logout, redirecionar para a home (ou outro lugar)
 
 DEFAULT_IMAGES_PER_PAGE = 24
-
 
 LOGGING = {
     'version': 1,
