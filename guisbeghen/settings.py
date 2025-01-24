@@ -142,13 +142,15 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
-STATIC_ROOT = '/var/www/guisbeghen.com.br/static'
+#STATIC_ROOT = '/var/www/guisbeghen.com.br/static'
+STATIC_ROOT = config('DJANGO_STATIC_ROOT')
 STATIC_URL = '/static/'  # Se quiser uma pasta diferente, altere aqui
 STATICFILES_DIRS = [BASE_DIR / 'static']  # Pode incluir diretórios adicionais de arquivos estáticos
 
 MEDIA_URL = '/media/'  # URL para acessar os arquivos na web
 # MEDIA_ROOT # = os.path.join(BASE_DIR, 'media')  # Diretório no sistema de arquivos onde os arquivos serão armazenados em desenvolvimento
-MEDIA_ROOT = '/var/www/guisbeghen.com.br/media/' # em produção
+#MEDIA_ROOT = '/var/www/guisbeghen.com.br/media/' # em desenvolvimento
+MEDIA_ROOT = config('DJANGO_MEDIA_ROOT')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
