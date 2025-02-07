@@ -162,15 +162,15 @@ LOGGING = {
     'disable_existing_loggers': False,
     'handlers': {
         'file': {
-            'level': 'ERROR',
+            'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/var/log/django/guisbeghen.log',
+            'filename': '/var/www/guisbeghen.com.br/guisbeghen/meu_log.log', # Caminho corrigido
         },
     },
     'loggers': {
-        'django': {
+        '': {
             'handlers': ['file'],
-            'level': 'ERROR',
+            'level': 'DEBUG',
             'propagate': True,
         },
     },
