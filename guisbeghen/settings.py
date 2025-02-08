@@ -93,7 +93,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'guisbeghen.wsgi.application'
+# WSGI_APPLICATION = 'guisbeghen.wsgi.application'
+ASGI_APPLICATION = 'guisbeghen.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -164,7 +165,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/var/www/guisbeghen.com.br/guisbeghen/meu_log.log', # Caminho corrigido
+            'filename': '/var/www/guisbeghen.com.br/guisbeghen/meu_log.log',  # Caminho corrigido
         },
     },
     'loggers': {
