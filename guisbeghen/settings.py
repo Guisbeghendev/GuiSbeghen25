@@ -165,7 +165,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/var/www/guisbeghen.com.br/guisbeghen/meu_log.log',  # Caminho corrigido
+            'filename': '/home/log/django/guisbeghen.com.br.log',
         },
     },
     'loggers': {
