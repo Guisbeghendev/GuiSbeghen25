@@ -1,4 +1,4 @@
-# views.py (diretório principal)
+# guiabeghen/views.py (diretório principal)
 
 from django.shortcuts import render
 from django.http import JsonResponse

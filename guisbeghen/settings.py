@@ -94,7 +94,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'guisbeghen.wsgi.application'
-# ASGI_APPLICATION = 'guisbeghen.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -161,11 +160,22 @@ DEFAULT_IMAGES_PER_PAGE = 24
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
     'handlers': {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/home/log/django/guisbeghen.com.br.log',
+            'filename': '/var/log/guisbeghen.log',  # Verifique este caminho!
+            'formatter': 'verbose',
         },
     },
     'loggers': {
